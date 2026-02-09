@@ -1,0 +1,11 @@
+rules:
+  - id: vba-auto-exec
+    patterns:
+      - pattern-either:
+          - pattern: Sub AutoOpen(...)
+          - pattern: Sub Document_Open(...)
+          - pattern: Sub Workbook_Open(...)
+          - pattern: Sub Auto_Open(...)
+    message: "Auto-executing macro detected. This is the primary trigger for macro-based malware."
+    severity: WARNING
+    languages: [generic]
