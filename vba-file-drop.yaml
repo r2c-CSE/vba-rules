@@ -2,8 +2,41 @@ rules:
   - id: vba-file-drop
     patterns:
       - pattern-either:
-          - pattern: CreateObject("Scripting.FileSystemObject").CreateTextFile(...)
+          - pattern: |
+              CreateObject("Scripting.FileSystemObject").CreateTextFile(...)
           - pattern: Open $FILE For Output As ...
+          - patterns:
+            - pattern: $X.CreateTextFile
+            - pattern-inside: |
+                CreateObject("Scripting.FileSystemObject")
+                ...
     message: Macro is writing a file to the disk. Potential 'Dropper' behavior.
     severity: WARNING
-    languages: [generic]
+    languages:
+      - generic
+    metadata:
+      category: security
+      subcategory:
+        - secure default
+      cwe:
+        - "CWE-73: External Control of File Name or Path"
+      confidence: MEDIUM
+      likelihood: MEDIUM
+      impact: MEDIUM
+      owasp:
+        - A8:2021 Software and Data Integrity Failures
+    paths:
+      include:
+        - "*.xlsm"
+        - "*.xlsb"
+        - "*.xlam"
+        - "*.xls"
+        - "*.docm"
+        - "*.doc"
+        - "*.pptm"
+        - "*.ppt"
+        - "*.bas"
+        - "*.frm"
+        - "*.frx"
+        - "*.cls"
+        - "*.vba"

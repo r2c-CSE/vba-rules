@@ -5,6 +5,36 @@ rules:
           - pattern: CreateObject("MSXML2.XMLHTTP")
           - pattern: CreateObject("WinHttp.WinHttpRequest.5.1")
           - pattern: CreateObject("Microsoft.XMLHTTP")
-    message: HTTP object detected. Macros should rarely need to make outbound web requests.
+    message: HTTP object detected. Macros should rarely need to make outbound web
+      requests.
     severity: ERROR
-    languages: [generic]
+    languages:
+      - generic
+    metadata:
+      category: security
+      subcategory:
+        - secure default
+      cwe:
+        - "CWE-494: Download of Code Without Integrity Check"
+      confidence: MEDIUM
+      likelihood: MEDIUM
+      impact: MEDIUM
+      technology:
+        - docker
+      owasp:
+        - A8:2021 Software and Data Integrity Failures
+    paths:
+      include:
+        - "*.xlsm"
+        - "*.xlsb"
+        - "*.xlam"
+        - "*.xls"
+        - "*.docm"
+        - "*.doc"
+        - "*.pptm"
+        - "*.ppt"
+        - "*.bas"
+        - "*.frm"
+        - "*.frx"
+        - "*.cls"
+        - "*.vba"

@@ -1,7 +1,34 @@
 rules:
   - id: vba-hidden-window
     patterns:
-      - pattern: Shell($CMD, 0)
-    message: "Macro is executing a command in a hidden window (stealth behavior)."
+      - pattern: Shell ..., 0 
+    message: Macro is executing a command in a hidden window (stealth behavior).
     severity: WARNING
-    languages: [generic]
+    languages:
+      - generic
+    metadata:
+      category: security
+      subcategory:
+        - secure default
+      cwe:
+        - "CWE-656: Reliance on Security Through Obscurity"
+      confidence: LOW
+      likelihood: MEDIUM
+      impact: MEDIUM
+      owasp:
+        - A8:2021 Software and Data Integrity Failures
+    paths:
+      include:
+        - "*.xlsm"
+        - "*.xlsb"
+        - "*.xlam"
+        - "*.xls"
+        - "*.docm"
+        - "*.doc"
+        - "*.pptm"
+        - "*.ppt"
+        - "*.bas"
+        - "*.frm"
+        - "*.frx"
+        - "*.cls"
+        - "*.vba"

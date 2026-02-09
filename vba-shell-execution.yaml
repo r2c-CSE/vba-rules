@@ -2,10 +2,47 @@ rules:
   - id: vba-shell-execution
     patterns:
       - pattern-either:
-          - pattern: Shell(...)
-          - pattern: CreateObject("WScript.Shell").Run(...)
-          - pattern: .Execute(...)
+          - pattern: Shell "..."
+          - pattern: CreateObject("WScript.Shell").Run
+          - pattern: |
+              Set $X = CreateObject("WScript.Shell")
+              ...
+              $X.Exec(...)
+          - pattern: |
+              Set $X = CreateObject("WScript.Shell")
+              ...
+              $X.Run
     message: VBA is executing a system shell command. Verify if this is necessary.
     severity: ERROR
     languages:
       - generic
+    metadata:
+      category: security
+      subcategory:
+        - secure default
+      cwe:
+        - "CWE-78: Improper Neutralization of Special Elements used in an OS
+          Command ('OS Command Injection')"
+      confidence: LOW
+      likelihood: MEDIUM
+      impact: HIGH
+      owasp:
+        - A3:2021 Injection
+      technology:
+        - django
+      source_rule_url: https://attack.mitre.org/techniques/T1059/
+    paths:
+      include:
+        - "*.xlsm"
+        - "*.xlsb"
+        - "*.xlam"
+        - "*.xls"
+        - "*.docm"
+        - "*.doc"
+        - "*.pptm"
+        - "*.ppt"
+        - "*.bas"
+        - "*.frm"
+        - "*.frx"
+        - "*.cls"
+        - "*.vba"

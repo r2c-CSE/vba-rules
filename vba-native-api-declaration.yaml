@@ -1,8 +1,9 @@
 rules:
   - id: vba-native-api-declaration
     patterns:
-      - pattern: |
-          Declare ... $FUNC Lib "kernel32" ...
+      - pattern-either:
+          - pattern: Declare ... $FUNC Lib "kernel32" ...
+          - pattern-regex: (?i)\b(VirtualAlloc|CreateThread)\s*\(
     message: Detected kernel32 import in scope. Commonly used for in-memory code execution. Check there is no primitive calls (VirtualAlloc/CreateThread). 
     severity: ERROR
     languages:

@@ -2,6 +2,35 @@ rules:
   - id: vba-string-reversal-obfuscation
     patterns:
       - pattern: StrReverse(...)
-    message: StrReverse detected. Often used to hide URLs or PowerShell commands from static analysis.
+    message: StrReverse detected. Often used to hide URLs or PowerShell commands
+      from static analysis.
     severity: WARNING
-    languages: [generic]
+    languages:
+      - generic
+    metadata:
+      category: security
+      subcategory:
+        - secure default
+      cwe:
+        - "CWE-656: Reliance on Security Through Obscurity"
+      confidence: LOW
+      likelihood: MEDIUM
+      impact: MEDIUM
+      owasp:
+        - A8:2021 Software and Data Integrity Failures
+      source_rule_url: https://attack.mitre.org/techniques/T1027/
+    paths:
+      include:
+        - "*.xlsm"
+        - "*.xlsb"
+        - "*.xlam"
+        - "*.xls"
+        - "*.docm"
+        - "*.doc"
+        - "*.pptm"
+        - "*.ppt"
+        - "*.bas"
+        - "*.frm"
+        - "*.frx"
+        - "*.cls"
+        - "*.vba"

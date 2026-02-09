@@ -1,7 +1,38 @@
 rules:
   - id: vba-doc-var-hiding
     patterns:
-      - pattern: ActiveDocument.Variables.Add(...)
-    message: Macro is storing data in Document Variables, a common place to hide malicious strings.
+      - pattern: ActiveDocument.Variables.Add
+    message: Macro is storing data in Document Variables, a common place to hide
+      malicious strings.
     severity: INFO
-    languages: [generic]
+    languages:
+      - generic
+    metadata:
+      category: security
+      subcategory:
+        - secure default
+      cwe:
+        - "CWE-656: Reliance on Security Through Obscurity"
+      confidence: MEDIUM
+      likelihood: MEDIUM
+      impact: MEDIUM
+      technology:
+        - docker
+      source_rule_url: https://attack.mitre.org/techniques/T1027/
+      owasp:
+        - A8:2021 Software and Data Integrity Failures
+    paths:
+      include:
+        - "*.xlsm"
+        - "*.xlsb"
+        - "*.xlam"
+        - "*.xls"
+        - "*.docm"
+        - "*.doc"
+        - "*.pptm"
+        - "*.ppt"
+        - "*.bas"
+        - "*.frm"
+        - "*.frx"
+        - "*.cls"
+        - "*.vba"

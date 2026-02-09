@@ -4,4 +4,31 @@ rules:
       - pattern: Environ(...)
     message: Macro is accessing environment variables for system discovery.
     severity: INFO
-    languages: [generic]
+    languages:
+      - generic
+    metadata:
+      category: security
+      subcategory:
+        - secure default
+      cwe:
+        - "CWE-200: Exposure of Sensitive Information to an Unauthorized Actor"
+      confidence: LOW
+      likelihood: MEDIUM
+      impact: HIGH
+      owasp:
+        - A1:2021 Broken Access Control
+    paths:
+      include:
+        - "*.xlsm"
+        - "*.xlsb"
+        - "*.xlam"
+        - "*.xls"
+        - "*.docm"
+        - "*.doc"
+        - "*.pptm"
+        - "*.ppt"
+        - "*.bas"
+        - "*.frm"
+        - "*.frx"
+        - "*.cls"
+        - "*.vba"

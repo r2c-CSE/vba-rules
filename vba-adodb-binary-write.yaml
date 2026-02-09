@@ -1,7 +1,37 @@
 rules:
   - id: vba-adodb-binary-write
     patterns:
-      - pattern: CreateObject("ADODB.Stream")
-    message: ADODB.Stream detected. Commonly used to save binary payloads (executables) to disk.
+      - pattern: $X.SaveToFile
+      - pattern-inside: |
+          CreateObject("ADODB.Stream")
+          ...
+    message: ADODB.Stream can store and write binary data to disk (e.g., via SaveToFile). Attackers frequently abuse this in VBA macros to drop payloads (executables/scripts) prior to execution. Consider reviewing surrounding code for Write, SaveToFile, network retrieval, and subsequent execution.
     severity: ERROR
-    languages: [generic]
+    languages:
+      - generic
+    metadata:
+      category: security
+      subcategory:
+        - secure default
+      cwe:
+        - "CWE-494: Download of Code Without Integrity Check"
+      confidence: MEDIUM
+      likelihood: MEDIUM
+      impact: MEDIUM
+      owasp:
+        - A8:2021 Software and Data Integrity Failures
+    paths:
+      include:
+        - "*.xlsm"
+        - "*.xlsb"
+        - "*.xlam"
+        - "*.xls"
+        - "*.docm"
+        - "*.doc"
+        - "*.pptm"
+        - "*.ppt"
+        - "*.bas"
+        - "*.frm"
+        - "*.frx"
+        - "*.cls"
+        - "*.vba"
