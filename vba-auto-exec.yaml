@@ -6,6 +6,36 @@ rules:
           - pattern: Sub Document_Open(...)
           - pattern: Sub Workbook_Open(...)
           - pattern: Sub Auto_Open(...)
-    message: "Auto-executing macro detected. This is the primary trigger for macro-based malware."
+    message: Auto-executing macro detected. This is the primary trigger for
+      macro-based malware.
     severity: WARNING
-    languages: [generic]
+    languages:
+      - generic
+    metadata:
+      category: security
+      subcategory:
+        - secure default
+      confidence: MEDIUM
+      likelihood: MEDIUM
+      impact: HIGH
+      cwe:
+        - "CWE-749: Exposed Dangerous Method or Function"
+      owasp:
+        - A8:2021 Software and Data Integrity Failures
+      references:
+        - https://learn.microsoft.com/en-us/microsoft-365-apps/security/internet-macros-blocked
+    paths:
+      include:
+        - "*.xlsm"
+        - "*.xlsb"
+        - "*.xlam"
+        - "*.xls"
+        - "*.docm"
+        - "*.doc"
+        - "*.pptm"
+        - "*.ppt"
+        - "*.bas"
+        - "*.frm"
+        - "*.frx"
+        - "*.cls"
+        - "*.vba"

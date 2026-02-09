@@ -1,0 +1,9 @@
+rules:
+  - id: vba-file-drop
+    patterns:
+      - pattern-either:
+          - pattern: CreateObject("Scripting.FileSystemObject").CreateTextFile(...)
+          - pattern: Open $FILE For Output As ...
+    message: Macro is writing a file to the disk. Potential 'Dropper' behavior.
+    severity: WARNING
+    languages: [generic]

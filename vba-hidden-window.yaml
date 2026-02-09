@@ -1,0 +1,7 @@
+rules:
+  - id: vba-hidden-window
+    patterns:
+      - pattern: Shell($CMD, 0)
+    message: "Macro is executing a command in a hidden window (stealth behavior)."
+    severity: WARNING
+    languages: [generic]

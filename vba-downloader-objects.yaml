@@ -1,0 +1,10 @@
+rules:
+  - id: vba-downloader-objects
+    patterns:
+      - pattern-either:
+          - pattern: CreateObject("MSXML2.XMLHTTP")
+          - pattern: CreateObject("WinHttp.WinHttpRequest.5.1")
+          - pattern: CreateObject("Microsoft.XMLHTTP")
+    message: HTTP object detected. Macros should rarely need to make outbound web requests.
+    severity: ERROR
+    languages: [generic]

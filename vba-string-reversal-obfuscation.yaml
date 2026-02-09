@@ -1,0 +1,7 @@
+rules:
+  - id: vba-string-reversal-obfuscation
+    patterns:
+      - pattern: StrReverse(...)
+    message: StrReverse detected. Often used to hide URLs or PowerShell commands from static analysis.
+    severity: WARNING
+    languages: [generic]

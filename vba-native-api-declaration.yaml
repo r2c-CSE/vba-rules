@@ -1,0 +1,36 @@
+rules:
+  - id: vba-native-api-declaration
+    patterns:
+      - pattern: |
+          Declare ... $FUNC Lib "kernel32" ...
+    message: Detected kernel32 import in scope. Commonly used for in-memory code execution. Check there is no primitive calls (VirtualAlloc/CreateThread). 
+    severity: ERROR
+    languages:
+      - generic
+    metadata:
+      category: security
+      subcategory:
+        - secure default
+      cwe:
+        - "CWE-94: Improper Control of Generation of Code ('Code Injection')"
+      confidence: MEDIUM
+      likelihood: MEDIUM
+      impact: HIGH
+      owasp:
+        - A3:2021 Injection
+      source_rule_url: https://learn.microsoft.com/windows/win32/api/memoryapi/nf-memoryapi-virtualalloc
+    paths:
+      include:
+        - "*.xlsm"
+        - "*.xlsb"
+        - "*.xlam"
+        - "*.xls"
+        - "*.docm"
+        - "*.doc"
+        - "*.pptm"
+        - "*.ppt"
+        - "*.bas"
+        - "*.frm"
+        - "*.frx"
+        - "*.cls"
+        - "*.vba"

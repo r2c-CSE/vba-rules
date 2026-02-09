@@ -1,0 +1,11 @@
+rules:
+  - id: vba-shell-execution
+    patterns:
+      - pattern-either:
+          - pattern: Shell(...)
+          - pattern: CreateObject("WScript.Shell").Run(...)
+          - pattern: .Execute(...)
+    message: VBA is executing a system shell command. Verify if this is necessary.
+    severity: ERROR
+    languages:
+      - generic

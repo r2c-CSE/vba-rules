@@ -1,0 +1,7 @@
+rules:
+  - id: vba-adodb-binary-write
+    patterns:
+      - pattern: CreateObject("ADODB.Stream")
+    message: ADODB.Stream detected. Commonly used to save binary payloads (executables) to disk.
+    severity: ERROR
+    languages: [generic]

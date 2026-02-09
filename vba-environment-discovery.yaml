@@ -1,0 +1,7 @@
+rules:
+  - id: vba-environment-discovery
+    patterns:
+      - pattern: Environ(...)
+    message: Macro is accessing environment variables for system discovery.
+    severity: INFO
+    languages: [generic]
