@@ -36,5 +36,7 @@ Found 10 configs to publish with visibility "VisibilityState.ORG_PRIVATE"
 ```
 It will add all the rules to your personal registry, but they will not be used in the scan until you add them to whatever policy/mode:
 * Using API you can call this endpoint: https://semgrep.dev/api/v1/deployments/{deploymentId}/policies/{policyId}
-* Using the UI, you can add rules to your policies by clicking the "Add to Policy" option in the "Rules & Policies" -> "Editor" menu.
+* Using the UI, you can add rules to your policies by clicking the "Add to Policy" option in the "Rules & Policies" -> "Editor" menu:
+
+![Adding rules to policy](images/add-policy.png)
 
